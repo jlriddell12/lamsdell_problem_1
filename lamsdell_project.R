@@ -6,3 +6,5 @@ library(readxl)
 xfile_name <- "Matrices 461-470.xlsx"
 x_data <- read_xlsx(xfile_name)
 sheets <- excel_sheets(xfile_name)
+data_tb <- as.tbl(x_data)
+species <- x_data[2:55,2]
