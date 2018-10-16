@@ -1,5 +1,10 @@
 #Download Lamsdell's file Matrices 461-470.xlsx into your working directory
 
+library("tidyverse")
+library("readxl")
+library("dplyr")
+#loads necessary libraries
+
 xfile_name <- "Matrices 461-470.xlsx"
 #assigns variable name to read in the .xlsx file 
 
