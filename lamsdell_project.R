@@ -19,6 +19,6 @@ group_w <- fill(data_tb, 1, .direction = "down")
 group <- group_w [-56,]
 #Fills in missing family values in first column, then excludes ancestor line.
 
-x=3
+column_number=3
 v1 <- x_data[2:56,x]
 #assign variable x as desired column number within the matrix, extracts selected column
