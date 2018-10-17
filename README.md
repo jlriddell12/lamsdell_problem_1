@@ -59,5 +59,5 @@ v1 <- x_data[2:56,column_number]
 
 AUTHORS:
 Jill Riddell
-Autumn Downey
+Autum Downey
 Brittany Casey
