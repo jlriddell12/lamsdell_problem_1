@@ -1,10 +1,10 @@
 Lamsdell's R Problem Exercise
 
 Included:
-- Project Description
+- Overall Project Description
+- Part 1
 - Getting Started
   - Prerequisites
-  - Challenges
 - Example Code with descriptions
 
 PROJECT DESCRIPTION
@@ -14,14 +14,19 @@ PROJECT DESCRIPTION
     All existing 0s need to be changed to the original value in R58
     All 2s need to be changed to -1
         Once that is done for each column, all the 2s in the matrix need to be replaced by -1.
+  The resulting outputs will be, for each matrix, the mean of each score by row and clade score (mean of all species) for each group.
 
+
+PART 1: Read and Extract
+  The purpose of the code in this section is to read in the .xlsx files, and extract the necessary column to build the automated recoding process from.  
+  The output will be a matrix created from the .xlsx file, a vector containing the list of the different species names, a matrix that contains filled in family names, and one extracted column from the matrix.  
+
+GETTING STARTED
+  To begin it is necessary to download the Lamsdell's file matrices into your working directory. For the first part of this exercise we used only  Matrices 461-470.xlsx.
 PREREQUISITES
   Necessary R packages include tidyverse and dplyr. This can be installed by running the following script in your R console.
           install.packages("tidyverse")
           install.packages("dplyr")
-
-GETTING STARTED
-To begin it is necessary to download the Lamsdell's file matrices into your working directory. For the first part of this exercise we used only  Matrices 461-470.xlsx.   
 
 EXAMPLE CODE:
 
