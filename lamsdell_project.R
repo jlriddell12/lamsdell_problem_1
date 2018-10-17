@@ -19,12 +19,10 @@ sheets <- excel_sheets(xfile_name)
 data_tb <- as.tbl(x_data)
 #alternate way of confirming data storage as a tbl
 
-species <- x_data[2:55,2]
+species <- pull(x_data[2:55,2], var = 1)
 #vector of species names excluding ancestor row
 
-group_w <- fill(data_tb, 1, .direction = "down")
-group <- group_w [-56,1]
-rm (group_w)
+group <- pull((fill(data_tb, 1, .direction = "down")[1:(nrow(data_tb)-1),]), var = 1)
 #Fills in missing family values in first column, then excludes ancestor line and removes excess file
 
 column_number=3

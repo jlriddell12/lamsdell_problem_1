@@ -5,6 +5,7 @@ Included:
 - Part 1
 - Getting Started
   - Prerequisites
+  - Challenges
 - Example Code with descriptions
 
 PROJECT DESCRIPTION
@@ -27,12 +28,14 @@ PREREQUISITES
   Necessary R packages include tidyverse and dplyr. This can be installed by running the following script in your R console.
           install.packages("tidyverse")
           install.packages("dplyr")
-
+CHALLENGES
+  as.vector does not work on tibble for converting data.frame to vector. Use pull() command under dplyr package. The default is to use the final column in the dataframe. Use var = 1 to tell it to start from the first column.
 EXAMPLE CODE:
 
 library("tidyverse")
+library("readxl")
 library("dplyr")
-#Calls in the tidyverse and dplyr packages
+#loads necessary libraries
 
 xfile_name <- "Matrices 461-470.xlsx"
 #assigns variable name to read in the .xlsx file
@@ -46,16 +49,18 @@ sheets <- excel_sheets(xfile_name)
 data_tb <- as.tbl(x_data)
 #alternate way of confirming data storage as a tbl
 
-species <- x_data[2:55,2]
+species <- pull(x_data[2:55,2], var = 1)
 #vector of species names excluding ancestor row
 
-group_w <- fill(data_tb, 1, .direction = "down")
-group <- group_w [-56,]
-#Fills in missing family values in first column, then excludes ancestor line.
+group <- pull((fill(data_tb, 1, .direction = "down")[1:(nrow(data_tb)-1),]), var = 1)
+#Fills in missing family values in first column, then excludes ancestor line and removes excess file
 
 column_number=3
 v1 <- x_data[2:56,column_number]
-#assign variable column_number as desired column number within the matrix and then extracts the selected column. The variable can be changed to reflect desired column for extraction.
+#if supposed to be a vector then v1 <- pull(x_data[2:56,column_number], var = 1)
+#assign variable x as desired column number within the matrix, extracts selected column
+
+#Note that in the final assignment, some of these lines will likely be combined into single lines of code. Here, they are separated for clarity and to ensure the template will work for all the sheets.
 
 AUTHORS:
 Jill Riddell
