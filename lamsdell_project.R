@@ -1,3 +1,5 @@
+#This code is meant to automate and replicate the process of recoding matrices in Dr. Lamsdell's work
+
 #Download Lamsdell's file Matrices 461-470.xlsx into your working directory
 
 library("tidyverse")
@@ -22,7 +24,8 @@ species <- x_data[2:55,2]
 
 group_w <- fill(data_tb, 1, .direction = "down")
 group <- group_w [-56,]
-#Fills in missing family values in first column, then excludes ancestor line.
+rm (group_w)
+#Fills in missing family values in first column, then excludes ancestor line and removes excess file
 
 column_number=3
 v1 <- x_data[2:56,column_number]
