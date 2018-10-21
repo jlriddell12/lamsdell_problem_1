@@ -1,4 +1,4 @@
-Lamsdell's R Problem Exercise
+Lamsdell's R Problem Exercise 
 
 Included:
 - Overall Project Description

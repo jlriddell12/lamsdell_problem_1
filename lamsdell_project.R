@@ -7,25 +7,25 @@ library("readxl")
 library("dplyr")
 #loads necessary libraries
 
-xfile_name <- "Matrices 461-470.xlsx"
 #assigns variable name to read in the .xlsx file 
+xfile_name <- "Matrices 461-470.xlsx"
 
-x_data <- read_xlsx(xfile_name)
 #reads in .xlsx as a tbl
+x_data <- read_xlsx(xfile_name)
 
-sheets <- excel_sheets(xfile_name)
 #created vector of sheet names
+sheets <- excel_sheets(xfile_name)
 
-data_tb <- as.tbl(x_data)
 #alternate way of confirming data storage as a tbl
+data_tb <- as.tbl(x_data)
 
-species <- pull(x_data[2:55,2], var = 1)
 #vector of species names excluding ancestor row
+species <- pull(x_data[2:55,2], var = 1)
 
-group <- pull((fill(data_tb, 1, .direction = "down")[1:(nrow(data_tb)-1),]), var = 1)
 #Fills in missing family values in first column, then excludes ancestor line and removes excess file
+group <- pull((fill(data_tb, 1, .direction = "down")[1:(nrow(data_tb)-1),]), var = 1)
 
-column_number=3
-v1 <- x_data[2:56,column_number]
 #assign variable x as desired column number within the matrix, extracts selected column
 #Note that in the final assignment, some of these lines will likely be combined into single lines of code. Here, they are separated for clarity and to ensure the template will work for all the sheets.
+column_number=3
+v1 <- x_data[2:56,column_number]
