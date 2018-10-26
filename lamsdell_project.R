@@ -2,10 +2,10 @@
 
 #Download Lamsdell's file Matrices 461-470.xlsx into your working directory
 
+#loads necessary libraries
 library("tidyverse")
 library("readxl")
 library("dplyr")
-#loads necessary libraries
 
 #assigns variable name to read in the .xlsx file 
 xfile_name <- "Matrices 461-470.xlsx"
@@ -29,3 +29,12 @@ group <- pull((fill(data_tb, 1, .direction = "down")[1:(nrow(data_tb)-1),]), var
 #Note that in the final assignment, some of these lines will likely be combined into single lines of code. Here, they are separated for clarity and to ensure the template will work for all the sheets.
 column_number=3
 v1 <- x_data[2:56,column_number]
+
+#recoding loop
+for (number in "v1") {
+  if (any(v1$'1' == 1)) { #pulls out "1" values by logical true or false
+    
+  } 
+}
+
+
