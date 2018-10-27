@@ -36,7 +36,7 @@ v1 <- x_data[2:56,column_number]
 for (number in "v1") {
   if(v1[55,] == 1){ 
     print("Ancestor is equal to 1")
-  } else {
+  } else if(v1[55,] == 2) {
     print("Ancestor is equal to 2")
   }
 }
