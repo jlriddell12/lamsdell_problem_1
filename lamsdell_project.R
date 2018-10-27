@@ -30,11 +30,19 @@ group <- pull((fill(data_tb, 1, .direction = "down")[1:(nrow(data_tb)-1),]), var
 column_number=3
 v1 <- x_data[2:56,column_number]
 
-#recoding loop
+##RECODING LOOP
+
+#specifies if ancestor value is 1 or 2
 for (number in "v1") {
-  if (any(v1$'1' == 1)) { #pulls out "1" values by logical true or false
-    
-  } 
+  if(v1[55,] == 1){ 
+    print("Ancestor is equal to 1")
+  } else {
+    print("Ancestor is equal to 2")
+  }
 }
+ 
+#(any(v1$'1' == 1)) { #pulls out "1" values by logical true or false
+    
+
 
 
