@@ -31,18 +31,14 @@ column_number=3
 v1 <- x_data[2:56,column_number]
 
 ##RECODING LOOP
-
-#specifies if ancestor value is 1 or 2
+    
+#specifies if ancestor value is 1 or 2 and recodes to 444 and 888 respectively 
 for (number in "v1") {
   if(v1[55,] == 1){ 
-    print("Ancestor is equal to 1")
+    (v1$`1`[v1$`1` == 1] <- 444)
   } else if(v1[55,] == 2) {
-    print("Ancestor is equal to 2")
+    (v1$`1`[v1$`1` == 2] <- 888)
   }
 }
- 
-#(any(v1$'1' == 1)) { #pulls out "1" values by logical true or false
-    
-
 
 
