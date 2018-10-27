@@ -32,15 +32,18 @@ v1 <- x_data[2:56,column_number]
 
 ##RECODING LOOP
     
-#specifies if ancestor value is 1 or 2 and recodes to 444 and 888 respectively 
-for (number in "v1") {
-  if(v1[55,] == 1){ 
-    (v1$`1`[v1$`1` == 1] <- 444)
-  } else if(v1[55,] == 2) {
-    (v1$`1`[v1$`1` == 2] <- 888)
-    (v1$`1`[v1$`1` == 0] <- 2) #Changes all 0s to 2s, but does this happen before or after 2s are changed to -1
-    (v1$`1`[v1$`1`== 2] <- -1)
-    (v1$`1`[v1$`1`== 888] <- 0)
+#recodes according to criteria for 1st column
+for (number in v1) {
+  if(v1[55,] == 1){ #if ancestor is equal to 1...
+    (v1$`1`[v1$`1` == 1] <- 444) #change all 1s to placeholder 444
+    (v1$`1`[v1$`1` == 0] <- 2) #change all 0s to 2s
+    (v1$`1`[v1$`1`== 2] <- -1) #now change all 2s to -1
+    (v1$`1`[v1$`1`== 444] <- 0) #now change all 444s to 0
+  } else if(v1[55,] == 2) { #if ancestor is equal to 2...
+    (v1$`1`[v1$`1` == 2] <- 888) #change all 2s to placeholder 888
+    (v1$`1`[v1$`1` == 0] <- 2) #change all 0s to 2s
+    (v1$`1`[v1$`1`== 2] <- -1) #now change all 2s to -1
+    (v1$`1`[v1$`1`== 888] <- 0) #now change all 888s to 0
   }
 }
 
