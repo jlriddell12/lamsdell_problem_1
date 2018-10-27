@@ -38,6 +38,9 @@ for (number in "v1") {
     (v1$`1`[v1$`1` == 1] <- 444)
   } else if(v1[55,] == 2) {
     (v1$`1`[v1$`1` == 2] <- 888)
+    (v1$`1`[v1$`1` == 0] <- 2) #Changes all 0s to 2s, but does this happen before or after 2s are changed to -1
+    (v1$`1`[v1$`1`== 2] <- -1)
+    (v1$`1`[v1$`1`== 888] <- 0)
   }
 }
 
