@@ -2,6 +2,8 @@
 
 #Download Lamsdell's file Matrices 461-470.xlsx into your working directory
 
+rm(list=ls()) #clears environment of previous work
+
 #loads necessary libraries
 library("tidyverse")
 library("readxl")
