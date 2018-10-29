@@ -1,6 +1,6 @@
-Lamsdell's R Problem Exercise 
+# Lamsdell's R Problem Exercise 
 
-Included:
+## Included:
 - Overall Project Description
 - Part 1
 - Getting Started
@@ -8,7 +8,7 @@ Included:
   - Challenges
 - Example Code with descriptions
 
-PROJECT DESCRIPTION
+## PROJECT DESCRIPTION
   The purpose of this code is to automate the recoding process for Dr. Lamsdell. Dr. Lamsdell's research is recorded in dozens of .xls files, each containing 10 sheets within, and each sheet is a matrix of data from columns C-V and rows 4-57.  He has included a "template" row, row 58, which represent the recoding values.  The necessary recoding is as follows:
     If R58 (Ancestor) has a 1 - all 1's in that column should be changed to 0
     If R58 (Ancestor) has a 2 - all 2's in that column should be changed to 0
@@ -18,19 +18,22 @@ PROJECT DESCRIPTION
   The resulting outputs will be, for each matrix, the mean of each score by row and clade score (mean of all species) for each group.
 
 
-PART 1: Read and Extract
+### PART 1: Read and Extract
   The purpose of the code in this section is to read in the .xlsx files, and extract the necessary column to build the automated recoding process from.  
   The output will be a matrix created from the .xlsx file, a vector containing the list of the different species names, a matrix that contains filled in family names, and one extracted column from the matrix.  
 
-GETTING STARTED
+#### GETTING STARTED
   To begin it is necessary to download the Lamsdell's file matrices into your working directory. For the first part of this exercise we used only  Matrices 461-470.xlsx.
-PREREQUISITES
+#### PREREQUISITES
   Necessary R packages include tidyverse and dplyr. This can be installed by running the following script in your R console.
           install.packages("tidyverse")
           install.packages("dplyr")
-CHALLENGES
+#### CHALLENGES
   as.vector does not work on tibble for converting data.frame to vector. Use pull() command under dplyr package. The default is to use the final column in the dataframe. Use var = 1 to tell it to start from the first column.
-EXAMPLE CODE:
+
+### Part 2: Indexing and Conditionals 
+
+### EXAMPLE CODE:
 
 library("tidyverse")
 library("readxl")
@@ -62,7 +65,7 @@ v1 <- x_data[2:56,column_number]
 
 #Note that in the final assignment, some of these lines will likely be combined into single lines of code. Here, they are separated for clarity and to ensure the template will work for all the sheets.
 
-AUTHORS:
+## AUTHORS:
 Jill Riddell
 Autum Downey
 Brittany Casey
