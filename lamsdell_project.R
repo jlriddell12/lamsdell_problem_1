@@ -32,19 +32,63 @@ v1 <- x_data[2:56,column_number]
 
 ##RECODING LOOP
     
-#recodes according to criteria for 1st column
+#We noticed if you call v1 from x_data it is titled column 3, therefore the following if-else code would have to have offset column numbers by 2 (because of the species name columns). So we decided to make a matrix that's just the data so that all the v-column numbers are titled with associated number, eg. v1 is titled column 1 and so on.
+column_number=3:22
+matrix461 <- x_data[2:56,column_number]
+
+column_number=1
+v1 <- matrix461[1:55,column_number]
+#recodes according to criteria for a column were original ancestor = 2
 for (number in v1) {
-  if(v1[55,] == 1){ #if ancestor is equal to 1...
-    (v1$`1`[v1$`1` == 1] <- 444) #change all 1s to placeholder 444
-    (v1$`1`[v1$`1` == 0] <- 2) #change all 0s to 2s
-    (v1$`1`[v1$`1`== 2] <- -1) #now change all 2s to -1
-    (v1$`1`[v1$`1`== 444] <- 0) #now change all 444s to 0
-  } else if(v1[55,] == 2) { #if ancestor is equal to 2...
-    (v1$`1`[v1$`1` == 2] <- 888) #change all 2s to placeholder 888
-    (v1$`1`[v1$`1` == 0] <- 2) #change all 0s to 2s
-    (v1$`1`[v1$`1`== 2] <- -1) #now change all 2s to -1
-    (v1$`1`[v1$`1`== 888] <- 0) #now change all 888s to 0
-  }
+  if(v1[55,] == 1){ #if ancestor is equal to 1...
+    (v1$`1`[v1$`1` == 1] <- 444) #change all 1s to placeholder 444
+    (v1$`1`[v1$`1` == 0] <- 1) #change all 0s to orginal ancestor (1)
+    (v1$`1`[v1$`1`== 2] <- -1) #now change all 2s to -1
+    (v1$`1`[v1$`1`== 444] <- 0) #now change all 444s to 0
+  } else if(v1[55,] == 2) { #if ancestor is equal to 2...
+    (v1$`1`[v1$`1` == 2] <- 888) #change all 2s to placeholder 888
+    (v1$`1`[v1$`1` == 0] <- 2) #change all 0s to original ancestor (2)
+    (v1$`1`[v1$`1`== 2] <- -1) #now change all 2s to -1
+    (v1$`1`[v1$`1`== 888] <- 0) #now change all 888s to 0
+  } else if(v1[55,] == 0) #if ancestor is equal to 0
+  
+(v1$`1`[v1$`1`== 2] <- -1) #now change all 2s to -1
 }
 
+#Test above code on a column row were original ancestor = 1 (column 3 of data)
+column_number=3
+v3 <- matrix461[1:55,column_number]
+for (number in v3) {
+  if(v3[55,] == 1){ #if ancestor is equal to 1...
+    (v3$`3`[v3$`3` == 1] <- 444) #change all 1s to placeholder 444
+    (v3$`3`[v3$`3` == 0] <- 1) #change all 0s to orginal ancestor (1)
+    (v3$`3`[v3$`3`== 2] <- -1) #now change all 2s to -1
+    (v3$`3`[v3$`3`== 444] <- 0) #now change all 444s to 0
+  } else if(v3[55,] == 2) { #if ancestor is equal to 2...
+    (v3$`3`[v3$`3` == 2] <- 888) #change all 2s to placeholder 888
+    (v3$`3`[v3$`3` == 0] <- 2) #change all 0s to original ancestor (2)
+    (v3$`3`[v3$`3`== 2] <- -1) #now change all 2s to -1
+    (v3$`3`[v3$`3`== 888] <- 0) #now change all 888s to 0
+  } else if(v3[55,] == 0) #if ancestor is equal to 0
+  
+(v3$`3`[v3$`3`== 2] <- -1) #now change all 2s to -1
+}
 
+#Test above code on a column row were original ancestor = 0 (column 7 of data)
+column_number=7
+v7 <- matrix461[1:55,column_number]
+for (number in v7) {
+  if(v7[55,] == 1){ #if ancestor is equal to 1...
+    (v7$`7`[v7$`7` == 1] <- 444) #change all 1s to placeholder 444
+    (v7$`7`[v7$`7` == 0] <- 1) #change all 0s to orginal ancestor (1)
+    (v7$`7`[v7$`7`== 2] <- -1) #now change all 2s to -1
+    (v7$`7`[v7$`7`== 444] <- 0) #now change all 444s to 0
+  } else if(v7[55,] == 2) { #if ancestor is equal to 2...
+    (v7$`7`[v7$`7` == 2] <- 888) #change all 2s to placeholder 888
+    (v7$`7`[v7$`7` == 0] <- 2) #change all 0s to original ancestor (2)
+    (v7$`7`[v7$`7`== 2] <- -1) #now change all 2s to -1
+    (v7$`7`[v7$`7`== 888] <- 0) #now change all 888s to 0
+  } else if(v7[55,] == 0) #if ancestor is equal to 0
+  
+(v7$`7`[v7$`7`== 2] <- -1) #now change all 2s to -1
+}
