@@ -4,5 +4,6 @@ install.packages(readxl)
 library(readxl)
 #Call in the read xl package
 xfile_name <- "Matrices 461-470.xlsx"
-x_data <- read_xls(xfile_name)
+x_data <- read_xlsx(xfile_name)
 sheets <- excel_sheets(xfile_name)
+#grab sheets name
