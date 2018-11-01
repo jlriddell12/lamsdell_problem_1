@@ -40,7 +40,7 @@
 This is done using a nested "if" loop containing two "if else" conditions. 1. If the "number" in the ansestor row from a chosen column is = 1 change all 1's to 444, change all 0's to the value in the ancestor row, change all 2's to a -1, and then change all 444's to -1. 2. "otherwise"", "if" the ancestor column = 2 then change all 2's to 888, change all 0's to the value in the ancestor row, change all 2's to -1, change all 888 to 0. 3. "otherwise" "if" ancestor = 0 change all 2's to a -1. 
 
 #### CHALLENGES 
-  The column_number vectoris calling the column number from the maxtrix461 data frame. This dataframe contains only the matrix data, no names, therefore the column number actually links to the given column number in the dataframe.  
+  _column_number variable should be able to be replaced with any column number to get the correct column. You should not need to repeat the code. An alternative solution exists in read.xl that lets you read in exactly the cols and rows you desire._ 
   
 ### EXAMPLE CODE:
 
