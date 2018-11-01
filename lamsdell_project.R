@@ -1,5 +1,5 @@
 #This code is meant to automate and replicate the process of recoding matrices in Dr. Lamsdell's work
-
+rm(list=ls())
 #Download Lamsdell's file Matrices 461-470.xlsx into your working directory
 
 #loads necessary libraries
@@ -9,7 +9,6 @@ library("dplyr")
 
 #assigns variable name to read in the .xlsx file 
 xfile_name <- "Matrices 461-470.xlsx"
-<<<<<<< HEAD
 x_data <- read_xlsx(xfile_name)
 sheets <- excel_sheets(xfile_name)
 #grab sheets name
@@ -30,10 +29,6 @@ species <- pull(x_data[2:55,2], var = 1)
 #Fills in missing family values in first column, then excludes ancestor line and removes excess file
 group <- pull((fill(data_tb, 1, .direction = "down")[1:(nrow(data_tb)-1),]), var = 1)
 
-#assign variable x as desired column number within the matrix, extracts selected column
-#Note that in the final assignment, some of these lines will likely be combined into single lines of code. Here, they are separated for clarity and to ensure the template will work for all the sheets.
-column_number=3
-v1 <- x_data[2:56,column_number]
 
 ##RECODING LOOP
     
@@ -41,8 +36,8 @@ v1 <- x_data[2:56,column_number]
 column_number=3:22
 matrix461 <- x_data[2:56,column_number]
 
-column_number=1
-v1 <- matrix461[1:55,column_number]
+column_number=1 ## to test on other cols, all you need to do is change this number, right? Though when I tried this, it didn't work quite right...
+v1 <- matrix461[1:55,column_number] ##v1 is a tibble, not a vector. This will cause problems later.  Please fix
 #recodes according to criteria for a column where original ancestor = 2
 for (number in v1) {
   if(v1[55,] == 1){ #if ancestor is equal to 1...
@@ -97,4 +92,4 @@ for (number in v7) {
   
 (v7$`7`[v7$`7`== 2] <- -1) #now change all 2s to -1
 }
->>>>>>> 1182cd8397c9cacf0616e2a17d9575a045f9ac03
+
