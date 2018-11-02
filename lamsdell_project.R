@@ -32,18 +32,21 @@ group <- pull((fill(data_tb, 1, .direction = "down")[1:(nrow(data_tb)-1),]), var
 ##RECODING LOOP
 
 data_tb <- read_excel(xfile_name, sheet = sheets[1], range = "R4C3:R58C22", col_names = FALSE) ## JILL: this is what you were trying to do.
-v1 <- pull(data_tb, X__1)
+v <- pull(data_tb, X__7) #change X__1 to view another column
 
 #ANCESTOR LINE (line 55) IS NOT CHANGED FOR THIS LOOP, remains original. 
-if(v1[55] == 1){ #if ancestor is equal to 1...
-  (v1[1:54][v1[1:54] == 1] <- 444) #change all 1s to placeholder 444
-  (v1[1:54][v1[1:54] == 0] <- 1) #change all 0s to orginal ancestor (1)
-  (v1[1:54][v1[1:54]== 2] <- -1) #now change all 2s to -1
-  (v1[1:54][v1[1:54]== 444] <- 0) #now change all 444s to 0
-} else if(v1[55] == 2) { #if ancestor is equal to 2...
-  (v1[1:54][v1[1:54] == 2] <- 888) #change all 2s to placeholder 888
-  (v1[1:54][v1[1:54] == 0] <- 2) #change all 0s to original ancestor (2)
-  (v1[1:54][v1[1:54]== 2] <- -1) #now change all 2s to -1
-  (v1[1:54][v1[1:54]== 888] <- 0) #now change all 888s to 0
+if(v[55] == 1){ #if ancestor is equal to 1...
+  (v[1:54][v[1:54] == 1] <- 444) #change all 1s to placeholder 444
+  (v[1:54][v[1:54] == 0] <- 1) #change all 0s to orginal ancestor (1)
+  (v[1:54][v[1:54]== 2] <- -1) #now change all 2s to -1
+  (v[1:54][v[1:54]== 444] <- 0) #now change all 444s to 0
+} else if(v[55] == 2) { #if ancestor is equal to 2...
+  (v[1:54][v[1:54] == 2] <- 888) #change all 2s to placeholder 888
+  (v[1:54][v[1:54] == 0] <- 2) #change all 0s to original ancestor (2)
+  (v[1:54][v[1:54]== 2] <- -1) #now change all 2s to -1
+  (v[1:54][v[1:54]== 888] <- 0) #now change all 444s to 0
+} else if(v[55] == 0){
+  (v[1:54][v[1:54]==2] <- -1)
 }
+
 
