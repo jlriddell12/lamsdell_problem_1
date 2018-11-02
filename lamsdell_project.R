@@ -47,8 +47,8 @@ if(v[55] == 1){ #if ancestor is equal to 1...
   (v[1:54][v[1:54] == 0] <- 2) #change all 0s to original ancestor (2)
   (v[1:54][v[1:54]== 2] <- -1) #now change all 2s to -1
   (v[1:54][v[1:54]== 888] <- 0) #now change all 444s to 0
-} else if(v[55] == 0){
-  (v[1:54][v[1:54]==2] <- -1)
+} else if(v[55] == 0){ #if ancestor line is 0...
+  (v[1:54][v[1:54]==2] <- -1) #change all 2s to -1
 }
 
 
