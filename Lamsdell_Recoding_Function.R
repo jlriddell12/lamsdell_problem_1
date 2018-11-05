@@ -1,4 +1,8 @@
-recoding_function <- function(data_tb){
+##Your function variable data_tb is not used anywhere in your function.
+##Instead of a tb, the function should be calling a vector, not a tibble
+##The apply function will apply your function (which works on a single
+##vector, to each 'vector' (column) in the dataframe)
+recoding_function <- function(data_tb){ 
   if(v[55] == 1){ #if ancestor is equal to 1...
     (v[1:54][v[1:54] == 1] <- 444) #change all 1s to placeholder 444
     (v[1:54][v[1:54] == 0] <- 1) #change all 0s to orginal ancestor (1)
