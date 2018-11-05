@@ -33,7 +33,15 @@
   as.vector does not work on tibble for converting data.frame to vector. Use pull() command under dplyr package. The default is to use the final column in the dataframe. Use var = 1 to tell it to start from the first column.
 
 ### Part 2: Indexing and Conditionals 
+  This section of the code provides the number transformations needed within a single column. As stated above       If the Ancestor row contains a column of value 1 - all 1's in that column should be changed to 0
+    If the Ancestor row contains a column of value 2 - all 2's in that column should be changed to 0
+    All existing 0s need to be changed to the original value in the ancestor column
+    All 2s need to be changed to -1
+This is done using a nested "if" loop containing two "if else" conditions. 1. If the "number" in the ansestor row from a chosen column is = 1 change all 1's to 444, change all 0's to the value in the ancestor row, change all 2's to a -1, and then change all 444's to -1. 2. "otherwise"", "if" the ancestor column = 2 then change all 2's to 888, change all 0's to the value in the ancestor row, change all 2's to -1, change all 888 to 0. 3. "otherwise" "if" ancestor = 0 change all 2's to a -1. 
 
+#### CHALLENGES 
+  The column_number vectoris calling the column number from the maxtrix461 data frame. This dataframe contains only the matrix data, no names, therefore the column number actually links to the given column number in the dataframe.  
+  
 ### EXAMPLE CODE:
 
 library("tidyverse")
@@ -64,7 +72,30 @@ v1 <- x_data[2:56,column_number]
 #if supposed to be a vector then v1 <- pull(x_data[2:56,column_number], var = 1)
 #assign variable x as desired column number within the matrix, extracts selected column
 
-#Note that in the final assignment, some of these lines will likely be combined into single lines of code. Here, they are separated for clarity and to ensure the template will work for all the sheets.
+##RECODING LOOP
+    
+column_number=3:22
+matrix461 <- x_data[2:56,column_number]
+
+#column_number=1
+v1 <- matrix461[1:55,column_number]
+recodes according to criteria for a column where original ancestor = 2
+for (number in v1) {
+  if(v1[55,] == 1){ #if ancestor is equal to 1...
+    (v1$`1`[v1$`1` == 1] <- 444) #change all 1s to placeholder 444
+    (v1$`1`[v1$`1` == 0] <- 1) #change all 0s to orginal ancestor (1)
+    (v1$`1`[v1$`1`== 2] <- -1) #now change all 2s to -1
+    (v1$`1`[v1$`1`== 444] <- 0) #now change all 444s to 0
+  } else if(v1[55,] == 2) { #if ancestor is equal to 2...
+    (v1$`1`[v1$`1` == 2] <- 888) #change all 2s to placeholder 888
+    (v1$`1`[v1$`1` == 0] <- 2) #change all 0s to original ancestor (2)
+    (v1$`1`[v1$`1`== 2] <- -1) #now change all 2s to -1
+    (v1$`1`[v1$`1`== 888] <- 0) #now change all 888s to 0
+  } else if(v1[55,] == 0) #if ancestor is equal to 0
+  
+(v1$`1`[v1$`1`== 2] <- -1) #now change all 2s to -1
+}
+
 
 ## AUTHORS:
 Jill Riddell
