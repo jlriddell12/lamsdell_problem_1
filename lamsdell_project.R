@@ -34,11 +34,9 @@ group <- pull((fill(data_tb, 1, .direction = "down")[1:(nrow(data_tb)-1),]), var
 ##RECODING LOOP
 
 data_tb <- read_excel(xfile_name, sheet = sheets[1], range = "R4C3:R58C22", col_names = FALSE) ## JILL: this is what you were trying to do.
-v <- pull(data_tb, X__1) #change X__1 to view another column
+jl_vector <- pull(data_tb, X__1) #change X__1 to view another column
 
 source("Lamsdell_Recoding_function.R") #sets the source for where the function is stored
-recoding_function(v)
 
-
-#matrix_461_recoded <- apply(data_tb, 2, recoding_function) #calls the funtion and applies it to data_tb #notes about apply for future
+matrix_461_recoded <- apply(data_tb, 2, recoding_function) #calls the funtion and applies it to data_tb #notes about apply for future
 
