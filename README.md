@@ -42,61 +42,60 @@ This is done using a nested "if" loop containing two "if else" conditions. 1. If
 #### CHALLENGES 
   _column_number variable should be able to be replaced with any column number to get the correct column. You should not need to repeat the code. An alternative solution exists in read.xl that lets you read in exactly the cols and rows you desire._ 
   
+
+### PART 3: recoding excel sheet
+  This portion of t he code creates a function containing the created loop and applies it to the whole worksheet.  
+
+#### CHALLENGES
+  Be sure the range of rows to includes the ancestor row. 
+  
 ### EXAMPLE CODE:
+
+rm(list=ls())
 
 library("tidyverse")
 library("readxl")
 library("dplyr")
-#loads necessary libraries
+
 
 xfile_name <- "Matrices 461-470.xlsx"
-#assigns variable name to read in the .xlsx file
+x_data <- read_xlsx(xfile_name)
+sheets <- excel_sheets(xfile_name)
+
 
 x_data <- read_xlsx(xfile_name)
-#reads in .xlsx as a tbl
 
 sheets <- excel_sheets(xfile_name)
-#created vector of sheet names
 
 data_tb <- as.tbl(x_data)
-#alternate way of confirming data storage as a tbl
 
 species <- pull(x_data[2:55,2], var = 1)
-#vector of species names excluding ancestor row
 
 group <- pull((fill(data_tb, 1, .direction = "down")[1:(nrow(data_tb)-1),]), var = 1)
-#Fills in missing family values in first column, then excludes ancestor line and removes excess file
 
-column_number=3
-v1 <- x_data[2:56,column_number]
-#if supposed to be a vector then v1 <- pull(x_data[2:56,column_number], var = 1)
-#assign variable x as desired column number within the matrix, extracts selected column
+data_tb <- read_excel(xfile_name, sheet = sheets[1], range = "R4C3:R58C22", col_names = FALSE) 
+jl_vector <- pull(data_tb, X__1)
 
-##RECODING LOOP
-    
-column_number=3:22
-matrix461 <- x_data[2:56,column_number]
+source("Lamsdell_Recoding_function.R") 
+matrix_461_recoded <- apply(data_tb, 2, recoding_function)
 
-#column_number=1
-v1 <- matrix461[1:55,column_number]
-recodes according to criteria for a column where original ancestor = 2
-for (number in v1) {
-  if(v1[55,] == 1){ #if ancestor is equal to 1...
-    (v1$`1`[v1$`1` == 1] <- 444) #change all 1s to placeholder 444
-    (v1$`1`[v1$`1` == 0] <- 1) #change all 0s to orginal ancestor (1)
-    (v1$`1`[v1$`1`== 2] <- -1) #now change all 2s to -1
-    (v1$`1`[v1$`1`== 444] <- 0) #now change all 444s to 0
-  } else if(v1[55,] == 2) { #if ancestor is equal to 2...
-    (v1$`1`[v1$`1` == 2] <- 888) #change all 2s to placeholder 888
-    (v1$`1`[v1$`1` == 0] <- 2) #change all 0s to original ancestor (2)
-    (v1$`1`[v1$`1`== 2] <- -1) #now change all 2s to -1
-    (v1$`1`[v1$`1`== 888] <- 0) #now change all 888s to 0
-  } else if(v1[55,] == 0) #if ancestor is equal to 0
-  
-(v1$`1`[v1$`1`== 2] <- -1) #now change all 2s to -1
-}
-
-
+#RECODING FUNCTION
+recoding_function <- function(jl_vector){ 
+  if(jl_vector[55] == 1){ 
+    (jl_vector[1:55][jl_vector[1:55] == 1] <- 444) 
+    (jl_vector[1:55][jl_vector[1:55] == 0] <- 1) 
+    (jl_vector[1:55][jl_vector[1:55]== 2] <- -1) 
+    (jl_vector[1:55][jl_vector[1:55]== 444] <- 0) 
+  } else if(jl_vector[55] == 2) { 
+    (jl_vector[1:55][jl_vector[1:55] == 2] <- 888) 
+    (jl_vector[1:55][jl_vector[1:55] == 0] <- 2) 
+    (jl_vector[1:55][jl_vector[1:55]== 2] <- -1)
+    (jl_vector[1:55][jl_vector[1:55]== 888] <- 0) 
+  } else if(jl_vector[55] == 0){ 
+    (jl_vector[1:55][jl_vector[1:55]==2] <- -1)
+  }
+  return(jl_vector)
+  
 ## AUTHORS:
 Jill Riddell
 Autum Downey
