@@ -43,11 +43,11 @@ This is done using a nested "if" loop containing two "if else" conditions. 1. If
   _column_number variable should be able to be replaced with any column number to get the correct column. You should not need to repeat the code. An alternative solution exists in read.xl that lets you read in exactly the cols and rows you desire._ 
   
 
-### PART 3: recoding excel sheet
-  This portion of t he code creates a function containing the created loop and applies it to the whole worksheet.  
+### PART 3: Making a Function, Apply it
+  This portion of the code creates a function using the previously made if/else arguments. The function operates across the vectors, or the columns, in the original data matrix. The apply function is used to make the function operate across an entire matrix by applying it to a set of vectors or columns. 
 
 #### CHALLENGES
-  Be sure the range of rows to includes the ancestor row. 
+  Be sure the range of rows to includes the ancestor row. Be sure that your function is operating a vector.
   
 ### EXAMPLE CODE:
 
