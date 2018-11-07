@@ -50,10 +50,9 @@ This is done using a nested "if" loop containing two "if else" conditions. 1. If
   Be sure the range of rows to includes the ancestor row. Be sure that your function is operating a vector.
   
 ### EXAMPLE CODE:
-## Script:
-**#This code is meant to automate and replicate the process of recoding matrices in Dr. Lamsdell's work**
+#### Script:
 
-rm(list=ls())
+rm(list=ls()) #always begin by clearing your environments
 
 **#loads necessary libraries**
 
@@ -104,7 +103,7 @@ source("Lamsdell_Recoding_function.R")
 
 matrix_461_recoded <- apply(data_tb, 2, recoding_function)
 
-## Function
+#### Function
 **# Applies conditionals to extracted vector for recoding column based on ancestor value**
 
 recoding_function <- function(jl_vector){ 
