@@ -93,7 +93,6 @@ group <- pull((fill(data_tb, 1, .direction = "down")[1:(nrow(data_tb)-1),]), var
 data_tb <- read_excel(xfile_name, sheet = sheets[1], range = "R4C3:R58C22", col_names = FALSE) ## JILL: this is what you were trying to do.
 
 **#Extraction of first column in vector form** 
-
 jl_vector <- pull(data_tb, X__1) #change X__1 to view another column
 
 **#Sets the source for where the function is stored**
