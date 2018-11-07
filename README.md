@@ -52,49 +52,44 @@ This is done using a nested "if" loop containing two "if else" conditions. 1. If
 ### EXAMPLE CODE:
 
 rm(list=ls())
+#Download Lamsdell's file Matrices 461-470.xlsx into your working directory
 
+#loads necessary libraries
 library("tidyverse")
 library("readxl")
 library("dplyr")
 
-
+#assigns variable name to read in the .xlsx file 
 xfile_name <- "Matrices 461-470.xlsx"
 x_data <- read_xlsx(xfile_name)
 sheets <- excel_sheets(xfile_name)
+#grab sheets name
 
-
+#reads in .xlsx as a tbl
 x_data <- read_xlsx(xfile_name)
 
+#created vector of sheet names
 sheets <- excel_sheets(xfile_name)
 
+#alternate way of confirming data storage as a tbl
 data_tb <- as.tbl(x_data)
 
+#vector of species names excluding ancestor row
 species <- pull(x_data[2:55,2], var = 1)
 
+#Fills in missing family values in first column, then excludes ancestor line and removes excess file
 group <- pull((fill(data_tb, 1, .direction = "down")[1:(nrow(data_tb)-1),]), var = 1)
 
-data_tb <- read_excel(xfile_name, sheet = sheets[1], range = "R4C3:R58C22", col_names = FALSE) 
-jl_vector <- pull(data_tb, X__1)
 
-source("Lamsdell_Recoding_function.R") 
-matrix_461_recoded <- apply(data_tb, 2, recoding_function)
+##RECODING LOOP
 
-#RECODING FUNCTION
-recoding_function <- function(jl_vector){ 
-  if(jl_vector[55] == 1){ 
-    (jl_vector[1:55][jl_vector[1:55] == 1] <- 444) 
-    (jl_vector[1:55][jl_vector[1:55] == 0] <- 1) 
-    (jl_vector[1:55][jl_vector[1:55]== 2] <- -1) 
-    (jl_vector[1:55][jl_vector[1:55]== 444] <- 0) 
-  } else if(jl_vector[55] == 2) { 
-    (jl_vector[1:55][jl_vector[1:55] == 2] <- 888) 
-    (jl_vector[1:55][jl_vector[1:55] == 0] <- 2) 
-    (jl_vector[1:55][jl_vector[1:55]== 2] <- -1)
-    (jl_vector[1:55][jl_vector[1:55]== 888] <- 0) 
-  } else if(jl_vector[55] == 0){ 
-    (jl_vector[1:55][jl_vector[1:55]==2] <- -1)
-  }
-  return(jl_vector)
+data_tb <- read_excel(xfile_name, sheet = sheets[1], range = "R4C3:R58C22", col_names = FALSE) ## JILL: this is what you were trying to do.
+jl_vector <- pull(data_tb, X__1) #change X__1 to view another column
+
+source("Lamsdell_Recoding_function.R") #sets the source for where the function is stored
+matrix_461_recoded <- apply(data_tb, 2, recoding_function) #calls the funtion and applies it to data_tb #notes about apply for future
+
+
   
 ## AUTHORS:
 Jill Riddell
