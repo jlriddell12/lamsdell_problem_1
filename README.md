@@ -50,51 +50,93 @@ This is done using a nested "if" loop containing two "if else" conditions. 1. If
   Be sure the range of rows to includes the ancestor row. Be sure that your function is operating a vector.
   
 ### EXAMPLE CODE:
+#### Script:
 
-rm(list=ls())
+rm(list=ls()) #always begin by clearing your environments
+
+**#loads necessary libraries**
 
 library("tidyverse")
+
 library("readxl")
+
 library("dplyr")
 
+**#assigns variable name to read in the .xlsx file** 
 
 xfile_name <- "Matrices 461-470.xlsx"
-x_data <- read_xlsx(xfile_name)
-sheets <- excel_sheets(xfile_name)
 
-
-x_data <- read_xlsx(xfile_name)
+**#grabs sheets name**
 
 sheets <- excel_sheets(xfile_name)
 
-data_tb <- as.tbl(x_data)
+**#reads in .xlsx as a tbl**
+
+x_data <- read_xlsx(xfile_name)
+
+**#created vector of sheet names**
+
+sheets <- excel_sheets(xfile_name)
+
+**#vector of species names excluding ancestor row**
 
 species <- pull(x_data[2:55,2], var = 1)
 
+**#Fills in missing family values in first column, then excludes ancestor line and removes excess file**
+
 group <- pull((fill(data_tb, 1, .direction = "down")[1:(nrow(data_tb)-1),]), var = 1)
 
-data_tb <- read_excel(xfile_name, sheet = sheets[1], range = "R4C3:R58C22", col_names = FALSE) 
-jl_vector <- pull(data_tb, X__1)
+
+**#assigns selected excel file name, sheet, and range**
+
+data_tb <- read_excel(xfile_name, sheet = sheets[1], range = "R4C3:R58C22", col_names = FALSE) ## JILL: this is what you were trying to do.
+
+**#Extraction of first column in vector form** 
+
+jl_vector <- pull(data_tb, X__1) #change X__1 to view another column
+
+**#Sets the source for where the function is stored**
 
 source("Lamsdell_Recoding_function.R") 
+
+**#Calls the funtion and applies it to data_tb**
+
 matrix_461_recoded <- apply(data_tb, 2, recoding_function)
 
-#RECODING FUNCTION
+#### Function
+**# Applies conditionals to extracted vector for recoding column based on ancestor value**
+
 recoding_function <- function(jl_vector){ 
-  if(jl_vector[55] == 1){ 
-    (jl_vector[1:55][jl_vector[1:55] == 1] <- 444) 
-    (jl_vector[1:55][jl_vector[1:55] == 0] <- 1) 
-    (jl_vector[1:55][jl_vector[1:55]== 2] <- -1) 
-    (jl_vector[1:55][jl_vector[1:55]== 444] <- 0) 
-  } else if(jl_vector[55] == 2) { 
-    (jl_vector[1:55][jl_vector[1:55] == 2] <- 888) 
-    (jl_vector[1:55][jl_vector[1:55] == 0] <- 2) 
-    (jl_vector[1:55][jl_vector[1:55]== 2] <- -1)
-    (jl_vector[1:55][jl_vector[1:55]== 888] <- 0) 
-  } else if(jl_vector[55] == 0){ 
-    (jl_vector[1:55][jl_vector[1:55]==2] <- -1)
+
+  if(jl_vector[55] == 1){ #if ancestor is equal to 1...
+  
+    (jl_vector[1:55][jl_vector[1:55] == 1] <- 444) #change all 1s to placeholder 444
+    
+    (jl_vector[1:55][jl_vector[1:55] == 0] <- 1) #change all 0s to orginal ancestor (1)
+    
+    (jl_vector[1:55][jl_vector[1:55]== 2] <- -1) #now change all 2s to -1
+    
+    (jl_vector[1:55][jl_vector[1:55]== 444] <- 0) #now change all 444s to 0
+    
+  } else if(jl_vector[55] == 2) { #if ancestor is equal to 2...
+  
+    (jl_vector[1:55][jl_vector[1:55] == 2] <- 888) #change all 2s to placeholder 888
+    
+    (jl_vector[1:55][jl_vector[1:55] == 0] <- 2) #change all 0s to original ancestor (2)
+    
+    (jl_vector[1:55][jl_vector[1:55]== 2] <- -1) #now change all 2s to -1
+    
+    (jl_vector[1:55][jl_vector[1:55]== 888] <- 0) #now change all 444s to 0
+    
+  } else if(jl_vector[55] == 0){ #if ancestor line is 0...
+  
+    (jl_vector[1:55][jl_vector[1:55]==2] <- -1) #change all 2s to -1
+    
   }
+  
   return(jl_vector)
+  
+}
   
 ## AUTHORS:
 Jill Riddell
