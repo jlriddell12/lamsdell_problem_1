@@ -28,7 +28,8 @@ sheets <- excel_sheets(xfile_name)
 species <- pull(x_data[2:55,2], var = 1)
 
 #Fills in missing family values in first column, then excludes ancestor line and removes excess file
-group <- pull((fill(data_tb, 1, .direction = "down")[1:(nrow(data_tb)-1),]), var = 1)
+##I adjusted this to use your tibble called x_data
+group <- pull((fill(x_data, 1, .direction = "down")[1:(nrow(x_data)-1),]), var = 1)
 
 
 #assigns selected excel file name, sheet, and range 
