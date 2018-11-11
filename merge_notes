@@ -1,0 +1,9 @@
+#Some notes on branches on merging
+#To make a branch use $ git branch thenameofyourbranch
+#To navigate to the branch use $ git checkout thenameofyourbranch
+#A message will appear that says "Switched to branch 'thenameofyourbranch'"
+#You can make whatever changes in your branch that you want
+#To go back to the master use $ git checkout master or to see branches use $ git show-branch
+#You can git add and commit branches just like you would the master.
+#To merge with the master, you must first git add and commit. Then:
+# $ git checkout master $ git merge thenameofyourbranch
