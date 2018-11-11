@@ -1,3 +1,7 @@
+# Messages to Jill
+data_tb <- read_excel(xfile_name, sheet = sheets[1:10], range = "R4C3:R58C22", col_names = FALSE) **DID NOT WORK**
+
+
 # Lamsdell's R Problem Exercise 
 
 ## Included:
