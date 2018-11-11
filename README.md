@@ -1,4 +1,6 @@
 # Messages to Jill
+**GOT IT** matrix_461_recoded_sums <- cbind(matrix_461_recoded, rowSums(matrix_461_recoded)) ## sums the rows into a new column on the end of the recoded matrix :)
+
 rowSums(matrix_461_recoded) **This works!!!** I am working on adding it to the original product as a new column
 data_tb <- read_excel(xfile_name, sheet = sheets[**1:10**], range = "R4C3:R58C22", col_names = FALSE) **DID NOT WORK**
 
