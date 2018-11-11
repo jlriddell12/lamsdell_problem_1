@@ -1,4 +1,5 @@
 # Messages to Jill
+rowSums(matrix_461_recoded) **This works!!!** I am working on adding it to the original product as a new column
 data_tb <- read_excel(xfile_name, sheet = sheets[**1:10**], range = "R4C3:R58C22", col_names = FALSE) **DID NOT WORK**
 
 
