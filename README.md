@@ -1,8 +1,12 @@
 # Messages to Jill
-**GOT IT** matrix_461_recoded_sums <- cbind(matrix_461_recoded, rowSums(matrix_461_recoded)) ## sums the rows into a new column on the end of the recoded matrix :)
+#Sums the rows into a new column on the end of the recoded matrix titled "sums"
+matrix_461_recoded_sums <- cbind(matrix_461_recoded, sums=rowSums(matrix_461_recoded))
 
-rowSums(matrix_461_recoded) **This works!!!** I am working on adding it to the original product as a new column
-data_tb <- read_excel(xfile_name, sheet = sheets[**1:10**], range = "R4C3:R58C22", col_names = FALSE) **DID NOT WORK**
+#Adds the group name vector to the recoded sums matrix in prep. for group sums
+group_matrix_combine <- cbind(group, matrix_461_recoded_sums)
+
+**CANT FIGURE OUT HOW TO GROUP BY SPECIES SO I CAN SUM FOR CLADE SCORES**
+
 
 
 # Lamsdell's R Problem Exercise 
