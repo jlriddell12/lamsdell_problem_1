@@ -6,9 +6,9 @@ rm(list=ls())
 #Download Lamsdell's file Matrices 461-470.xlsx into your working directory
 
 #loads necessary libraries
+library("plyr")
 library("tidyverse")
 library("readxl")
-library("dplyr")
 
 #assigns variable name to read in the .xlsx file 
 xfile_name <- "Matrices 461-470.xlsx"
@@ -44,3 +44,14 @@ source("Lamsdell_Recoding_function.R")
 #calls the funtion and applies it to data_tb #notes about apply for future
 matrix_461_recoded <- apply(data_tb, 2, recoding_function)
 
+#Sums the rows into a new column on the end of the recoded matrix 
+matrix_461_recoded_sums <- cbind(matrix_461_recoded, sums=rowSums(matrix_461_recoded))
+
+#Adds the group name vector to the recoded sums matrix in prep. for group sums
+group_matrix_combine <- cbind(group, matrix_461_recoded_sums)
+
+ddply(
+  .data = group_matrix_combine,
+  .variable = "group",
+  .fun = function(x) sum(x$sums)
+ )
