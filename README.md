@@ -1,3 +1,14 @@
+# Casey this is what I have for the loop as of now
+for (${"Matrix 461"} in{sheets}) #here "Matrix 461" needs to turn into a variable but I've not been successful. But it does work on each sheet if you change the sheet namee
+     do
+     data_tb <- read_excel(xfile_name, sheet = sheets[1], range = "R4C3:R58C22", col_names = FALSE) 
+     
+     jl_vector <- pull(data_tb, X__1)
+     
+     source("Lamsdell_Recoding_function.R") 
+     
+     Matrix461d <- apply(data_tb, 2, recoding_function)
+
 # Messages to Jill
 #Sums the rows into a new column on the end of the recoded matrix titled "sums"
 matrix_461_recoded_sums <- cbind(matrix_461_recoded, sums=rowSums(matrix_461_recoded))
