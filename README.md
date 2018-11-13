@@ -10,12 +10,21 @@
 
 ## PROJECT DESCRIPTION
   The purpose of this code is to automate the recoding process for Dr. Lamsdell. Dr. Lamsdell's research is recorded in dozens of .xls files, each containing 10 sheets within, and each sheet is a matrix of data from columns C-V and rows 4-57.  He has included a "template" row, row 58, which represent the recoding values.  The necessary recoding is as follows:
+  
     If R58 (Ancestor) has a 1 - all 1's in that column should be changed to 0
+    
     If R58 (Ancestor) has a 2 - all 2's in that column should be changed to 0
+    
     All existing 0s need to be changed to the original value in R58
+    
     All 2s need to be changed to -1
-        Once that is done for each column, all the 2s in the matrix need to be replaced by -1.
-  The resulting outputs will be, for each matrix, the mean of each score by row and clade score (mean of all species) for each group.
+    
+    Once that is done for each column, all the 2s in the matrix need to be replaced by -1.
+    
+  The resulting outputs will be, for each matrix:
+  * the sum of each score by row
+  * weighted average for each row score (=row sum/20)
+  * clade score (mean of all species) for each group.
 
 #### GETTING STARTED
   To begin it is necessary to download the Lamsdell's file matrices into your working directory. For the first part of this exercise we used only  Matrices 461-470.xlsx.
@@ -33,21 +42,15 @@
   as.vector does not work on tibble for converting data.frame to vector. Use pull() command under dplyr package. The default is to use the final column in the dataframe. Use var = 1 to tell it to start from the first column.
 
 ### Part 2: Indexing and Conditionals 
-  This section of the code provides the number transformations needed within a single column. As stated above       If the Ancestor row contains a column of value 1 - all 1's in that column should be changed to 0
-    If the Ancestor row contains a column of value 2 - all 2's in that column should be changed to 0
-    All existing 0s need to be changed to the original value in the ancestor column
-    All 2s need to be changed to -1
+  This section of the code provides the number transformations needed within a single column. As stated above      
+
 This is done using a nested "if" loop containing two "if else" conditions. 1. If the "number" in the ansestor row from a chosen column is = 1 change all 1's to 444, change all 0's to the value in the ancestor row, change all 2's to a -1, and then change all 444's to -1. 2. "otherwise"", "if" the ancestor column = 2 then change all 2's to 888, change all 0's to the value in the ancestor row, change all 2's to -1, change all 888 to 0. 3. "otherwise" "if" ancestor = 0 change all 2's to a -1. 
 
 #### CHALLENGES 
   _column_number variable should be able to be replaced with any column number to get the correct column. You should not need to repeat the code. An alternative solution exists in read.xl that lets you read in exactly the cols and rows you desire._ 
   
-
 ### PART 3: Making a Function, Apply it
   This portion of the code creates a function using the previously made if/else arguments. The function operates across the vectors, or the columns, in the original data matrix. The apply function is used to make the function operate across an entire matrix by applying it to a set of vectors or columns. 
-
-#### CHALLENGES
-  Be sure the range of rows to includes the ancestor row. Be sure that your function is operating on a vector.
 
 ### PART 4: Loop the Function
   Now, the function is inserted into a loop to run it across all sheets in the workbook, in this case ten sheets. The cbind operator is used to add the summation column to each matrix then apply and paste are used to name each sheet so that the loop outputs each recoded sheet as a dataframe. The character "d" is added to the sheet names to indicate that the output data represents the done, or recoded, data.
@@ -55,6 +58,7 @@ This is done using a nested "if" loop containing two "if else" conditions. 1. If
 #### CHALLENGES
   For the loop to produce a dataframe output for each sheet, the variable in the for/in statement must be renamed according to each sheet at the end of the loop. 
   
+  Also, how to include group mean in the loop as it is based off species (where there is 6 rows) compared to the matrix which has 55. Possibly create another loop, but that would be a seperate output than the recoded matrix. 
   
 ### EXAMPLE CODE:
 #### Script:
