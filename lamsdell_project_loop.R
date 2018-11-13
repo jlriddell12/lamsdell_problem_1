@@ -11,7 +11,7 @@ library("readxl")
 library("dplyr")
 
 #assigns variable name to read in the .xlsx file 
-xfile_name <- "Matrices 461-470.xlsx"
+xfile_name <- "data/Matrices 461-470.xlsx"
 
 #grabs sheets name
 sheets <- excel_sheets(xfile_name)
@@ -35,7 +35,7 @@ do
 	data_tb <- read_excel(xfile_name, sheet = sheet_name, range = "R4C3:R58C22", col_names = FALSE) 
 	jl_vector <- pull(data_tb, X__1)
 
-	source("Lamsdell_Recoding_function.R") 
+	source("functions/Lamsdell_Recoding_function.R") 
    
 	m <- apply(data_tb, 2, recoding_function)
 	
