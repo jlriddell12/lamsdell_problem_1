@@ -52,92 +52,73 @@ This is done using a nested "if" loop containing two "if else" conditions. 1. If
 ### EXAMPLE CODE:
 #### Script:
 ```R
-rm(list=ls()) #always begin by clearing your environments
+#This code is meant to automate and replicate the process of recoding matrices in Dr. Lamsdell's work
+ 
+#Clears environment of previous work
+rm(list=ls())
+ 
+#Download Lamsdell's file Matrices 461-470.xlsx into your working directory
 
-**#loads necessary libraries**
-
+#loads necessary libraries
 library("tidyverse")
-
 library("readxl")
-
 library("dplyr")
 
-**#assigns variable name to read in the .xlsx file** 
-
+#assigns variable name to read in the .xlsx file 
 xfile_name <- "Matrices 461-470.xlsx"
 
-**#grabs sheets name**
-
+#grabs sheets name
 sheets <- excel_sheets(xfile_name)
 
-**#reads in .xlsx as a tbl**
-
+#reads in .xlsx as a tbl
 x_data <- read_xlsx(xfile_name)
 
-**#created vector of sheet names**
-
+#created vector of sheet names
 sheets <- excel_sheets(xfile_name)
 
-**#vector of species names excluding ancestor row**
-
+#vector of species names excluding ancestor row
 species <- pull(x_data[2:55,2], var = 1)
 
-**#Fills in missing family values in first column, then excludes ancestor line and removes excess file**
+#Fills in missing family values in first column, then excludes ancestor line and removes excess file
+##I adjusted this to use your tibble called x_data
+group <- pull((fill(x_data, 1, .direction = "down")[1:(nrow(x_data)-1),]), var = 1)
 
-group <- pull((fill(data_tb, 1, .direction = "down")[1:(nrow(data_tb)-1),]), var = 1)
+for (sheet_name in sheets) {
+do
+	data_tb <- read_excel(xfile_name, sheet = sheet_name, range = "R4C3:R58C22", col_names = FALSE) 
+	jl_vector <- pull(data_tb, X__1)
 
-
-**#assigns selected excel file name, sheet, and range**
-
-data_tb <- read_excel(xfile_name, sheet = sheets[1], range = "R4C3:R58C22", col_names = FALSE) 
-
-**#Extraction of first column in vector form** 
-
-jl_vector <- pull(data_tb, X__1) #change X__1 to view another column
-
-**#Sets the source for where the function is stored**
-
-source("Lamsdell_Recoding_function.R") 
-
-**#Calls the funtion and applies it to data_tb**
-
-matrix_461_recoded <- apply(data_tb, 2, recoding_function)
-
-#### Function
-**# Applies conditionals to extracted vector for recoding column based on ancestor value**
-
-recoding_function <- function(jl_vector){ 
-
-  if(jl_vector[55] == 1){ #if ancestor is equal to 1...
-  
-    (jl_vector[1:55][jl_vector[1:55] == 1] <- 444) #change all 1s to placeholder 444
-    
-    (jl_vector[1:55][jl_vector[1:55] == 0] <- 1) #change all 0s to orginal ancestor (1)
-    
-    (jl_vector[1:55][jl_vector[1:55]== 2] <- -1) #now change all 2s to -1
-    
-    (jl_vector[1:55][jl_vector[1:55]== 444] <- 0) #now change all 444s to 0
-    
-  } else if(jl_vector[55] == 2) { #if ancestor is equal to 2...
-  
-    (jl_vector[1:55][jl_vector[1:55] == 2] <- 888) #change all 2s to placeholder 888
-    
-    (jl_vector[1:55][jl_vector[1:55] == 0] <- 2) #change all 0s to original ancestor (2)
-    
-    (jl_vector[1:55][jl_vector[1:55]== 2] <- -1) #now change all 2s to -1
-    
-    (jl_vector[1:55][jl_vector[1:55]== 888] <- 0) #now change all 444s to 0
-    
-  } else if(jl_vector[55] == 0){ #if ancestor line is 0...
-  
-    (jl_vector[1:55][jl_vector[1:55]==2] <- -1) #change all 2s to -1
-    
-  }
-  
-  return(jl_vector)
-  
+	source("Lamsdell_Recoding_function.R") 
+   
+	m <- apply(data_tb, 2, recoding_function)
+	
+	m_sums <- cbind(m, sums=rowSums(m))
+ 
+	assign(paste0(sheet_name, "d"), m_sums)  
 }
-```  
+
+```
+#### Recoding Function
+```R
+# Function to apply Lamsdell recoding criteria to the matrix
+recoding_function <- function(jl_vector){ 
+  if(jl_vector[55] == 1){ #if ancestor is equal to 1...
+    (jl_vector[1:55][jl_vector[1:55] == 1] <- 444) #change all 1s to placeholder 444
+    (jl_vector[1:55][jl_vector[1:55] == 0] <- 1) #change all 0s to orginal ancestor (1)
+    (jl_vector[1:55][jl_vector[1:55]== 2] <- -1) #now change all 2s to -1
+    (jl_vector[1:55][jl_vector[1:55]== 444] <- 0) #now change all 444s to 0
+  } else if(jl_vector[55] == 2) { #if ancestor is equal to 2...
+    (jl_vector[1:55][jl_vector[1:55] == 2] <- 888) #change all 2s to placeholder 888
+    (jl_vector[1:55][jl_vector[1:55] == 0] <- 2) #change all 0s to original ancestor (2)
+    (jl_vector[1:55][jl_vector[1:55]== 2] <- -1) #now change all 2s to -1
+    (jl_vector[1:55][jl_vector[1:55]== 888] <- 0) #now change all 444s to 0
+  } else if(jl_vector[55] == 0){ #if ancestor line is 0...
+    (jl_vector[1:55][jl_vector[1:55]==2] <- -1) #change all 2s to -1
+  }
+  return(jl_vector)
+}
+```
+
 ## AUTHORS:
 
 Jill Riddell
