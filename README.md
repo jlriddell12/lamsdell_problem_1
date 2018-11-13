@@ -47,7 +47,14 @@ This is done using a nested "if" loop containing two "if else" conditions. 1. If
   This portion of the code creates a function using the previously made if/else arguments. The function operates across the vectors, or the columns, in the original data matrix. The apply function is used to make the function operate across an entire matrix by applying it to a set of vectors or columns. 
 
 #### CHALLENGES
-  Be sure the range of rows to includes the ancestor row. Be sure that your function is operating a vector.
+  Be sure the range of rows to includes the ancestor row. Be sure that your function is operating on a vector.
+
+### PART 4: Loop the Function
+  Now, the function is inserted into a loop to run it across all sheets in the workbook, in this case ten sheets. The cbind operator is used to add the summation column to each matrix then apply and paste are used to name each sheet so that the loop outputs each recoded sheet as a dataframe. The character "d" is added to the sheet names to indicate that the output data represents the done, or recoded, data.
+
+#### CHALLENGES
+  For the loop to produce a dataframe output for each sheet, the variable in the for/in statement must be renamed according to each sheet at the end of the loop. 
+  
   
 ### EXAMPLE CODE:
 #### Script:
