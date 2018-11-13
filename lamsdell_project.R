@@ -6,9 +6,9 @@ rm(list=ls())
 #Download Lamsdell's file Matrices 461-470.xlsx into your working directory
 
 #loads necessary libraries
-library("plyr")
 library("tidyverse")
 library("readxl")
+library("dplyr")
 
 #assigns variable name to read in the .xlsx file 
 xfile_name <- "Matrices 461-470.xlsx"
@@ -50,8 +50,9 @@ matrix_461_recoded_sums <- cbind(matrix_461_recoded, sums=rowSums(matrix_461_rec
 #Adds the group name vector to the recoded sums matrix in prep. for group sums
 group_matrix_combine <- cbind(group, matrix_461_recoded_sums)
 
-ddply(
-  .data = group_matrix_combine,
-  .variable = "group",
-  .fun = function(x) sum(x$sums)
- )
+# DOESNT WORK, can't find function. Can't install "plyr"
+# ddply(
+#  .data = group_matrix_combine,
+#  .variable = "group",
+#  .fun = function(x) sum(x$sums)
+# )

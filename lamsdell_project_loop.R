@@ -37,6 +37,8 @@ do
 	source("Lamsdell_Recoding_function.R") 
    
 	m <- apply(data_tb, 2, recoding_function)
+	
+	m_sums <- cbind(m, sums=rowSums(m))
  
-	assign(paste0(sheet_name, "d"), m)  
+	assign(paste0(sheet_name, "d"), m_sums)  
 }
