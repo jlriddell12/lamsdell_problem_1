@@ -1,25 +1,3 @@
-# Casey this is what I have for the loop as of now
-for (${"Matrix 461"} in{sheets}) #here "Matrix 461" needs to turn into a variable but I've not been successful. But it does work on each sheet if you change the sheet namee
-     do
-     data_tb <- read_excel(xfile_name, sheet = sheets[1], range = "R4C3:R58C22", col_names = FALSE) 
-     
-     jl_vector <- pull(data_tb, X__1)
-     
-     source("Lamsdell_Recoding_function.R") 
-     
-     Matrix461d <- apply(data_tb, 2, recoding_function)
-
-# Messages to Jill
-#Sums the rows into a new column on the end of the recoded matrix titled "sums"
-matrix_461_recoded_sums <- cbind(matrix_461_recoded, sums=rowSums(matrix_461_recoded))
-
-#Adds the group name vector to the recoded sums matrix in prep. for group sums
-group_matrix_combine <- cbind(group, matrix_461_recoded_sums)
-
-**CANT FIGURE OUT HOW TO GROUP BY SPECIES SO I CAN SUM FOR CLADE SCORES**
-
-
-
 # Lamsdell's R Problem Exercise 
 
 ## Included:
@@ -73,7 +51,7 @@ This is done using a nested "if" loop containing two "if else" conditions. 1. If
   
 ### EXAMPLE CODE:
 #### Script:
-
+```R
 rm(list=ls()) #always begin by clearing your environments
 
 **#loads necessary libraries**
@@ -159,8 +137,11 @@ recoding_function <- function(jl_vector){
   return(jl_vector)
   
 }
-  
+```  
 ## AUTHORS:
+
 Jill Riddell
+
 Autum Downey
+
 Brittany Casey
