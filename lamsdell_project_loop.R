@@ -29,6 +29,7 @@ species <- pull(x_data[2:55,2], var = 1)
 ##I adjusted this to use your tibble called x_data
 group <- pull((fill(x_data, 1, .direction = "down")[1:(nrow(x_data)-1),]), var = 1)
 
+#Loops the recoding function through every matrix sheet in the workbook and adds summation column from data.
 for (sheet_name in sheets) {
 do
 	data_tb <- read_excel(xfile_name, sheet = sheet_name, range = "R4C3:R58C22", col_names = FALSE) 
@@ -39,6 +40,6 @@ do
 	m <- apply(data_tb, 2, recoding_function)
 	
 	m_sums <- cbind(m, sums=rowSums(m))
- 
+	
 	assign(paste0(sheet_name, "d"), m_sums)  
 }
