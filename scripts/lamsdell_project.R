@@ -50,3 +50,4 @@ for (sheet_name in sheets) {
 
 ## This works to get the mean of the species, but can not include in loop because of mismatched rows
 ##clade_mean <- as.data.frame(m_sums) %>% group_by(group) %>% summarise(mean = mean(as.numeric(sum)))
+##AH- The clade mean and group means can be calculted outside the loop - see next assignment.
