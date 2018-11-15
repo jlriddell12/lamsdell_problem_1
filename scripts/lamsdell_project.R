@@ -38,7 +38,7 @@ for (sheet_name in sheets) {
   
   m <- apply(data_tb, 2, recoding_function) #calls the funtion and applies it to data_tb
   
-  m_mean <- cbind(m, mean=rowMeans(m)) #Mean of the species rows into a new column on the end of the recoded matrix
+  m_mean <- cbind(m, (paste0(sheet_name, "_mean")=rowMeans(m))) #Mean of the species rows into a new column on the end of the recoded matrix
   
   assign(paste0(sheet_name, "d"), m_mean[1:(nrow(m_mean)-1),]) #Outputs each individual sheet produced through the loop, excludes ancestor line
   
