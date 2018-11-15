@@ -13,10 +13,6 @@ library("dplyr")
 #assigns variable name to read in the .xlsx file 
 xfile_name <- "data/Matrices 461-470.xlsx"
 
-#grabs sheets name
-sheets <- excel_sheets(xfile_name)
-
-
 #reads in .xlsx as a tbl
 x_data <- read_xlsx(xfile_name)
 
@@ -42,12 +38,16 @@ for (sheet_name in sheets) {
   
   m <- apply(data_tb, 2, recoding_function) #calls the funtion and applies it to data_tb
   
-  assign(paste0(sheet_name, "d"), m[1:(nrow(m)-1),]) #Outputs each individual sheet produced through the loop, excludes ancestor line  
+  m_mean <- cbind(m, mean=rowMeans(m)) #Mean of the species rows into a new column on the end of the recoded matrix
+  
+  assign(paste0(sheet_name, "d"), m_mean[1:(nrow(m_mean)-1),]) #Outputs each individual sheet produced through the loop, excludes ancestor line
+  
 }
+
+Sheet_means <- `Matrix 461d`[,c('mean')] #extracts mean column for one matrix
 
 
 
 ## This works to get the mean of the species, but can not include in loop because of mismatched rows
-##m_mean <- cbind(group, m, sums=rowMeans(m))#Sums the rows into a new column on the end of the recoded matrix
 ##clade_mean <- as.data.frame(m_sums) %>% group_by(group) %>% summarise(mean = mean(as.numeric(sum)))
 ##AH- The clade mean and group means can be calculted outside the loop - see next assignment.
