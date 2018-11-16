@@ -38,15 +38,13 @@ for (sheet_name in sheets) {
   
   m <- apply(data_tb, 2, recoding_function) #calls the funtion and applies it to data_tb
   
-  m_mean <- cbind(m, (paste0(sheet_name, "_mean")=rowMeans(m))) #Mean of the species rows into a new column on the end of the recoded matrix
+  m_mean <- cbind(m, mean=rowMeans(m)) #Mean of the species rows into a new column on the end of the recoded matrix
   
   assign(paste0(sheet_name, "d"), m_mean[1:(nrow(m_mean)-1),]) #Outputs each individual sheet produced through the loop, excludes ancestor line
   
 }
-
-Sheet_means <- `Matrix 461d`[,c('mean')] #extracts mean column for one matrix
-
-
+  
+##Sheet_means <- `Matrix 461d`[,c('mean')] #extracts mean column for one matrix
 
 ## This works to get the mean of the species, but can not include in loop because of mismatched rows
 ##clade_mean <- as.data.frame(m_sums) %>% group_by(group) %>% summarise(mean = mean(as.numeric(sum)))
