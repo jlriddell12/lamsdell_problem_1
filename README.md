@@ -30,11 +30,14 @@
   To begin it is necessary to download the Lamsdell's file matrices into your working directory. For the first part of this exercise we used only  Matrices 461-470.xlsx.
 
 #### PREREQUISITES
-  Necessary R packages include tidyverse and dplyr. This can be installed by running the following script in your R console.
+  **Necessary R packages** include tidyverse and dplyr. This can be installed by running the following script in your R console.
   
           install.packages("tidyverse")
           install.packages("dplyr")
-          install.packages("readxl")         
+          install.packages("readxl")     
+
+- The function paste0 was introduced to base R in version 2.15.0, if you are having issues utilizing the function you may need to upgrade your version.  
+
 ### PART 1: Read and Extract
   The purpose of the code in this section is to read in the .xlsx files, and extract the necessary column to build the automated recoding process from.  
   The output will be a matrix created from the .xlsx file, a vector containing the list of the different species names, a matrix that contains filled in family names, and one extracted column from the matrix.  
