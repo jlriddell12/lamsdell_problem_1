@@ -21,10 +21,10 @@
     
     Once that is done for each column, all the 2s in the matrix need to be replaced by -1.
     
-  The resulting outputs will be, for each matrix:
-  * the sum of each score by row
-  * weighted average for each row score (=row sum/20)
-  * clade score (mean of all species) for each group.
+  The resulting outputs will be, a .csv file for each matrix:
+  * weighted average (mean) column for each matrix
+  * mean per group (5 groups)
+  * Grand mean- clade score for all (score/54)
 
 #### GETTING STARTED
   To begin it is necessary to download the Lamsdell's file matrices into your working directory. For the first part of this exercise we used only  Matrices 461-470.xlsx.
@@ -35,40 +35,14 @@
           install.packages("tidyverse")
           install.packages("dplyr")
           install.packages("readxl")     
-
-- The function paste0 was introduced to base R in version 2.15.0, if you are having issues utilizing the function you may need to upgrade your version.  
-
-### PART 1: Read and Extract
-  The purpose of the code in this section is to read in the .xlsx files, and extract the necessary column to build the automated recoding process from.  
-  The output will be a matrix created from the .xlsx file, a vector containing the list of the different species names, a matrix that contains filled in family names, and one extracted column from the matrix.  
-
-#### CHALLENGES
-  as.vector does not work on tibble for converting data.frame to vector. Use pull() command under dplyr package. The default is to use the final column in the dataframe. Use var = 1 to tell it to start from the first column.
-
-### Part 2: Indexing and Conditionals 
-  This section of the code provides the number transformations needed within a single column. As stated above      
-
-This is done using a nested "if" loop containing two "if else" conditions. 1. If the "number" in the ansestor row from a chosen column is = 1 change all 1's to 444, change all 0's to the value in the ancestor row, change all 2's to a -1, and then change all 444's to -1. 2. "otherwise"", "if" the ancestor column = 2 then change all 2's to 888, change all 0's to the value in the ancestor row, change all 2's to -1, change all 888 to 0. 3. "otherwise" "if" ancestor = 0 change all 2's to a -1. 
-
-#### CHALLENGES 
-  _column_number variable should be able to be replaced with any column number to get the correct column. You should not need to repeat the code. An alternative solution exists in read.xl that lets you read in exactly the cols and rows you desire._ 
-  
-### PART 3: Making a Function, Apply it
-  This portion of the code creates a function using the previously made if/else arguments. The function operates across the vectors, or the columns, in the original data matrix. The apply function is used to make the function operate across an entire matrix by applying it to a set of vectors or columns. 
-
-### PART 4: Loop the Function
-  Now, the function is inserted into a loop to run it across all sheets in the workbook, in this case ten sheets. The cbind operator is used to add the summation column to each matrix then apply and paste are used to name each sheet so that the loop outputs each recoded sheet as a dataframe. The character "d" is added to the sheet names to indicate that the output data represents the done, or recoded, data.
-
-#### CHALLENGES
-  For the loop to produce a dataframe output for each sheet, the variable in the for/in statement must be renamed according to each sheet at the end of the loop. 
-  
-  Also, how to include group mean in the loop as it is based off species (where there is 6 rows) compared to the matrix which has 55. Possibly create another loop, but that would be a seperate output than the recoded matrix. 
+#### Challenges
+- The function paste0 was introduced to base R in version 2.15.0, if you are having issues utilizing the function you may need to upgrade your version.
+- as.vector does not work on tibble for converting data.frame to vector. Use pull() command under dplyr package. The default is to use the final column in the dataframe. Use var = 1 to tell it to start from the first column.
+- For the loop to produce a dataframe output for each sheet, the variable in the for/in statement must be renamed according to each sheet at the end of the loop. 
   
 ### EXAMPLE CODE:
 #### Script:
 ```R
-#This code is meant to automate and replicate the process of recoding matrices in Dr. Lamsdell's work
-
 #Clears environment of previous work
 rm(list=ls())
 
@@ -79,43 +53,47 @@ library("tidyverse")
 library("readxl")
 library("dplyr")
 
-#assigns variable name to read in the .xlsx file 
-xfile_name <- "data/Matrices 461-470.xlsx"
+#Nested loop for applying the recoding process across all files
 
-#grabs sheets name
-sheets <- excel_sheets(xfile_name)
+files <- list.files("./data") #create vector of files
 
-
-#reads in .xlsx as a tbl
-x_data <- read_xlsx(xfile_name)
-
-#created vector of sheet names
-sheets <- excel_sheets(xfile_name)
-
-
-#vector of species names excluding ancestor row
-species <- pull(x_data[2:55,2], var = 1)
-
-#Fills in missing family values in first column, then excludes ancestor line and removes excess file
-##I adjusted this to use your tibble called x_data
-group <- pull((fill(x_data, 1, .direction = "down")[1:(nrow(x_data)-1),]), var = 1)
-
-# Loops the recoding function through each matrix in a workbook, adds summatation column for each row, and mean for each group 
-for (sheet_name in sheets) {
-  do
-  data_tb <- read_excel(xfile_name, sheet = sheet_name, range = "R4C3:R58C22", col_names = FALSE) #assigns selected excel file name, sheet, and range 
-  jl_vector <- pull(data_tb, X__1) #Extraction of first column in vector form
-  
-  source("functions/Lamsdell_Recoding_function.R") #sets the source for where the function is stored
-  
-  m <- apply(data_tb, 2, recoding_function) #calls the funtion and applies it to data_tb
-  
-  m_sums <- cbind(group, m, sums=rowSums(m))#Sums the rows into a new column on the end of the recoded matrix 
-  
-  weighted <- cbind(m_sums, weighted=(rowSums(m)/20)) #Calculates the weighted average by sum/20
-  
-  assign(paste0(sheet_name, "d"), weighted) #Outputs each individual sheet produced through the loop  
+for (file_name in files){
+  x_data <- read_xlsx(paste0("data/", file_name)) #reads in .xlsx as a tbl
+  sheets <- excel_sheets(paste0("data/", file_name)) #creates a vector of sheet names
+  species <- pull(x_data[2:55,2], var = 1) #vector of species names excluding ancestor row and first row (the "grand" score)
+  group <- pull((fill(x_data, 1, .direction = "down")[2:(nrow(x_data)-1),]), var = 1) #Fills in missing family values in first column, then excludes first line and ancestor line and removes excess file
+  for (sheet_name in sheets) {
+    do
+    
+    data_tb <- read_excel(paste0("data/", file_name), sheet = sheet_name, range = "R4C3:R58C22", col_names = FALSE) #assigns selected excel file name, sheet, and range
+    
+    jl_vector <- pull(data_tb, X__1) #Extraction of first column in vector form
+    
+    source("functions/Lamsdell_Recoding_function.R") #sets the source for where the function is stored
+    
+    m <- apply(data_tb, 2, recoding_function) #calls the funtion and applies it to data_tb
+    
+    m_mean <- cbind(m, mean=rowMeans(m)) #Mean of the species rows into a new column on the end of the recoded matrix
+    
+    assign(paste0(sheet_name, "d"), m_mean[1:(nrow(m_mean)-1),]) #Outputs each individual sheet produced through the loop, excludes ancestor line
+    
+    matrix_list <- ls(pattern="Matrix") #creates a vector of all matrices ran through the recoding loop
+  }
 }
+
+# Extracting the means for each matrix and combining into a single file
+summaryM <- matrix(nrow=54) #makes an empty data frame to fill each matrix mean into
+
+for (matrix_name in matrix_list){
+  summary <- rowMeans(get(matrix_name)) #extracts means row, not pretty. I tried matrix_name[,c("means)]
+  summaryM <- cbind(summaryM, summary) #binds all means columns into one matrix
+}
+
+summaryM <- summaryM[,-1] #deletes weird extra column
+colnames(summaryM) <- matrix_list #assigns sheetnames to column headers
+summaryM <- cbind(group, species, summaryM) #adds group and species list to matrix
+write.csv(summaryM, file = "summaryM.csv") #outputs the mean summaries as a .csv
+
 ```
 #### Recoding Function
 ```R
