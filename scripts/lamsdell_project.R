@@ -45,6 +45,6 @@ summaryM <- cbind(group, species, summaryM) #adds group and species list to matr
 write.csv(summaryM, file = "summaryM.csv") #outputs the mean summaries as a .csv
 
 
-#IN PROGRESS
+#IN PROGRESS ##This can be solved using aggregate
 #group_mean_by_row <- cbind(summaryM, rowmean=rowMeans(summaryM)) #mean of species means
 #group_mean <- as.data.frame(summaryM) %>% group_by(group) %>% summarise(colMeans(summaryM[2:54, 3:19]))
